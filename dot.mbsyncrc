@@ -1,0 +1,115 @@
+# Abridged from https://wiki.archlinux.org/index.php/Isync
+
+IMAPAccount ${GMAIL_USER}
+Host imap.gmail.com
+User ${GMAIL_USER}@gmail.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${GMAIL_USER}.gpg"
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore ${GMAIL_USER}-remote
+Account ${GMAIL_USER}
+
+MaildirStore ${GMAIL_USER}-local
+Subfolders Verbatim
+# The trailing "/" is important
+Path ~/Maildir/${GMAIL_USER}/
+Inbox ~/Maildir/${GMAIL_USER}/Inbox
+
+Channel ${GMAIL_USER}
+Master :${GMAIL_USER}-remote:
+Slave :${GMAIL_USER}-local:
+# What directories to sync.  For my individual case, I decided:
+# 1. All-caps "INBOX" is assumed by mbsync, so we exclude a separate
+#    sync for Gmail's "Inbox".
+# 2. I try to centralize intelligence regarding various mailing lists at the Gnus
+#   "splitting" step, so exclude mailing list folders (e.g., "emacs-devel") from
+#    the sync.
+# 3. I kind of don't care about all the [Gmail] folders except "Sent Mail"
+Patterns * !Inbox !emacs-devel ![Gmail]* "[Gmail]/Sent Mail"
+# Only create missing folders locally
+Create Slave
+Sync All
+Expunge Both
+SyncState *
+# Setting this appropriately might prevent a mail-strom of massive attachments
+# MaxSize 100k
+
+#######################################
+# IMAPAccount Gmail2
+# Host imap.gmail.com
+# User ${GMAIL_USER2}@gmail.com
+# PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${GMAIL_USER2}.gpg"
+# AuthMechs LOGIN
+# SSLType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+# IMAPStore ${GMAIL_USER2}-remote
+# Account ${GMAIL_USER2}
+
+# MaildirStore ${GMAIL_USER2}-local
+# Subfolders Verbatim
+# Path ~/Maildir/${GMAIL_USER2}/
+# Inbox ~/Maildir/${GMAIL_USER2}/Inbox
+
+# Channel ${GMAIL_USER2}
+# Master :${GMAIL_USER2}-remote:
+# Slave :${GMAIL_USER2}-local:
+# Patterns * !Inbox !emacs-devel ![Gmail]* "[Gmail]/Sent Mail"
+# Create Slave
+# Sync All
+# Expunge Both
+# SyncState *
+
+#######################################
+# IMAPAccount Hotmail
+# Host imap-mail.outlook.com
+# User ${HOTMAIL_USER}@gmail.com
+# PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${HOTMAIL_USER}.gpg"
+# AuthMechs LOGIN
+# SSLType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+# IMAPStore ${HOTMAIL_USER}-remote
+# Account ${HOTMAIL_USER}
+
+# MaildirStore ${HOTMAIL_USER}-local
+# Subfolders Verbatim
+# Path ~/Maildir/${HOTMAIL_USER}/
+# Inbox ~/Maildir/${HOTMAIL_USER}/Inbox
+
+# Channel ${HOTMAIL_USER}
+# Master :${HOTMAIL_USER}-remote:
+# Slave :${HOTMAIL_USER}-local:
+# Patterns * !Inbox !emacs-devel
+# Create Slave
+# Sync All
+# Expunge Both
+# SyncState *
+
+#######################################
+# IMAPAccount Yahoo
+# Host imap.mail.yahoo.com
+# User ${YAHOO_USER}@gmail.com
+# PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${YAHOO_USER}.gpg"
+# AuthMechs LOGIN
+# SSLType IMAPS
+# CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+# IMAPStore ${YAHOO_USER}-remote
+# Account ${YAHOO_USER}
+
+# MaildirStore ${YAHOO_USER}-local
+# Subfolders Verbatim
+# Path ~/Maildir/${YAHOO_USER}/
+# Inbox ~/Maildir/${YAHOO_USER}/Inbox
+
+# Channel ${YAHOO_USER}
+# Master :${YAHOO_USER}-remote:
+# Slave :${YAHOO_USER}-local:
+# Patterns * !Inbox !emacs-devel
+# Create Slave
+# Sync All
+# Expunge Both
+# SyncState *
