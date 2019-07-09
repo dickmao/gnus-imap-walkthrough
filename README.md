@@ -10,7 +10,7 @@ If your occupation does not currently involve an elisp hacking component, Gnus i
 
 The setup demonstrated here is modelled after [gongzhitaao/GnusSolution](https://github.com/gongzhitaao/GnusSolution).  It is neither secure (!) nor feature complete, but should serve as a solid baseline.  I've also copied some configuration from <https://wiki.archlinux.org/index.php/Isync> and <https://github.com/jwiegley/dot-emacs>.
 
-This repo aims to do one better by actually executing the steps on a CircleCI Ubuntu image.
+This repo aims to do one better by actually [executing the steps](https://circleci.com/gh/dickmao/gnus-imap-walkthrough) on a CircleCI Ubuntu image.
 
 Begin by turning on "Less secure app access" from Gmail's settings (or by disabling whatever  upstream setting that might block imap logins).  Then clone this repo, and study [build.sh](https://github.com/dickmao/gnus-imap-walkthrough/blob/master/build.sh) to piece it all together.
 
