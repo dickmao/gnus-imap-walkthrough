@@ -61,4 +61,4 @@ envsubst < ${REPO}/dot.emacs >> ~/.emacs
 envsubst < ${REPO}/dot.gnus >> ~/.gnus
 
 # Test that we see messages in our inbox.  Not applicable generally.
-emacs -Q --batch -l ~/.emacs -f gnus --eval "(let ((gnus-tmp-active (gnus-active \"nnimap+nnreddit.user:INBOX\"))) (cl-assert (not (zerop (1+ (- (cdr gnus-tmp-active) (car gnus-tmp-active)))))))"
+emacs -Q --batch -l ~/.emacs -f gnus --eval "(let ((gnus-tmp-active (gnus-active \"nnimap+${GMAIL_USER}:INBOX\"))) (cl-assert (not (zerop (1+ (- (cdr gnus-tmp-active) (car gnus-tmp-active)))))))"
