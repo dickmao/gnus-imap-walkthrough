@@ -25,4 +25,7 @@
  '(gnus-always-read-dribble-file t)
  '(mail-user-agent (quote gnus-user-agent))
  '(read-mail-command (quote gnus))
- '(send-mail-function (quote message-send-mail-with-sendmail)))
+ '(send-mail-function (quote message-send-mail-with-sendmail))
+ '(message-send-mail-function (quote message-send-mail-with-sendmail))
+ '(message-sendmail-envelope-from (quote header))
+ '(message-signature-separator "^-- *$"))
