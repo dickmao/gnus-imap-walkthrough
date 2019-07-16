@@ -22,4 +22,4 @@ RUN \
   && sed -E -i 's|^#\s*(log_path).*|\1 = /var/log/dovecot.log|' /etc/dovecot/conf.d/10-loggin   g.conf \
   && sed -E -i 's|^#\s*(!include auth-passwdfile.*)|\1|' /etc/dovecot/conf.d/10-auth.conf \
   && sed -E -i 's|^\s*(mail_location).*|\1 = maildir:%h/Maildir/%n:LAYOUT=fs:INBOX=%h/Maildir/%n/Inbox|' /etc/dovecot/conf.d/10-mail.conf \
-  && /etc/init.d/dovecot start  
+  && /etc/init.d/dovecot start
