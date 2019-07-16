@@ -8,6 +8,7 @@ export YAHOO_USER=yahoo.user
 export DOVECOT_PASSWORD=weak_password
 export DOVECOT_UID=$(id -u $USER)
 export DOVECOT_GID=$(id -g $USER)
+export DOVECOT_HOME=${HOME}
 
 source ${REPO}/build-utils.sh
 
