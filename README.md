@@ -1,11 +1,10 @@
-# gnus-imap-walkthrough
-Provably set up Gnus for IMAP (Gmail) accounts from scratch.
+# See Your Gmail in a Docker Container
+Begin by turning on "Less secure app access" from Gmail's settings.
 
-The setup demonstrated here is modelled after [gongzhitaao/GnusSolution](https://github.com/gongzhitaao/GnusSolution).  It is neither secure (!) nor feature complete, but should serve as a solid baseline.
+Clone this repo, and `make run`.  To avoid a potential "mail-strom", the container configuration limits the number of messages to 1000 and filters out attachments exceeding 100kB.
 
-This repo aims to do one better by actually [executing the steps](https://circleci.com/gh/dickmao/gnus-imap-walkthrough) on a CircleCI Ubuntu image.
-
-Begin by turning on "Less secure app access" from Gmail's settings (or by disabling whatever  upstream setting that might block imap logins).  Then clone this repo, and study [build.sh](https://github.com/dickmao/gnus-imap-walkthrough/blob/master/build.sh) to piece it all together.
+# Avoid Docker
+When you are ready to cut over to a proper Gnus setup, study [build.sh](https://github.com/dickmao/gnus-imap-walkthrough/blob/master/build.sh).  It is neither secure (!) nor feature complete, but should serve as a solid baseline.  I can offer some guarantees against bitrot as I actually [execute the steps](https://circleci.com/gh/dickmao/gnus-imap-walkthrough) on a CircleCI Ubuntu image.
 
 # Why I use Gnus
 > Its [sic] 2019, the only thing you should be using is notmuch.
