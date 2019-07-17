@@ -28,3 +28,33 @@
                   (message-replace-header "From" apropos-from))))))
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+(add-function
+ :override (symbol-function 'nnimap-get-groups)
+ (lambda ()
+   (erase-buffer)
+   (let ((sequence (nnimap-send-command "LIST \"\" \"*\""))
+         groups)
+     (nnimap-wait-for-response sequence)
+     (subst-char-in-region (point-min) (point-max)
+                           ?\\ ?% t)
+     (goto-char (point-min))
+     (nnimap-unfold-quoted-lines)
+     (goto-char (point-min))
+     (while (search-forward "* LIST " nil t)
+       (let ((flags (mapcar (lambda (x) (intern (downcase (symbol-name x))))
+                            (read (current-buffer))))
+             (_separator (read (current-buffer)))
+             (group (buffer-substring-no-properties
+                     (progn (skip-chars-forward " \"")
+                            (point))
+                     (progn (end-of-line)
+                            (skip-chars-backward " \r\"")
+                            (point)))))
+         (unless (member '%noselect flags)
+           (push (utf7-decode (if (stringp group)
+                                  group
+                                (format "%s" group))
+                              t)
+                 groups))))
+     (nreverse groups))))
