@@ -33,8 +33,9 @@ Create Slave
 Sync All
 Expunge Both
 SyncState *
-# Setting this appropriately might prevent a mail-strom of massive attachments
-# MaxSize 100k
+# Setting this appropriately prevents a mail-strom of massive attachments
+MaxSize 100k
+MaxMessages 1000
 
 #######################################
 # IMAPAccount Gmail2

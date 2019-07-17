@@ -18,6 +18,11 @@
           )))
 
 (custom-set-variables
+ '(network-security-level (quote low))
+ '(gnus-interactive-exit (quote quiet))
+ '(gnus-ignored-newsgroups "\\[Gmail\\]$")
+ '(gnus-large-newsgroup 4000)
+ '(gnus-permanently-visible-groups "INBOX")
  '(gnus-select-method (quote (nnnil)))
  '(gnus-secondary-select-methods my-secondary-select-methods)
  '(gnus-add-timestamp-to-message (quote log))

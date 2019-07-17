@@ -11,7 +11,7 @@
 *.~undo-tree
 
 nnreddit.user.gmail.pw
-docker/dot.authinfo
 docker/dovecot.users
 docker/*.gpg
 docker/Dockerfile
+docker/dot.*

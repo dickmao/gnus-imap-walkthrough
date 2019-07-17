@@ -8,6 +8,6 @@ tls_certcheck off
 auth on
 user ${GMAIL_USER}@gmail.com
 from ${GMAIL_USER}@gmail.com
-passwordeval gpg2 -q --for-your-eyes-only --no-tty -d ~/Maildir/${GMAIL_USER}.gpg
+passwordeval gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${GMAIL_USER}.gpg
 
 account default : ${GMAIL_USER}
