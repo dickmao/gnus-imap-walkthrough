@@ -9,11 +9,19 @@ all: Dockerfile
 
 .PHONY: clean
 clean:
-	-rm -f gmail-user gmail-password.gpg
+	-rm -f gmail-user gmail-password.gpg nnreddit.user.gpg
 
 .PHONY: run
 run: all
 	docker run -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix gnus
+
+.PHONY: test
+test: clean
+	@echo nnreddit.user > gmail-user
+	@cp $(REPO)/nnreddit.user.gpg .
+	@ln -s nnreddit.user.gpg gmail-password.gpg
+	$(MAKE) all
+	$(MAKE) clean
 
 gmail-user:
 	$(eval GMAIL_USER := $(shell read -ep "Gmail User: " ; echo $$REPLY))
