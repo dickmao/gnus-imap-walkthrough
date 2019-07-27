@@ -3,3 +3,6 @@ all:
 
 run:
 	$(MAKE) -C docker $@
+
+test:
+	$(MAKE) -C docker $@

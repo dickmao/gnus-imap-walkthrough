@@ -8,5 +8,5 @@ jobs:
       - run:
           command: |
             bash -euxE build.sh
-            make -C docker test
+            make test
             
