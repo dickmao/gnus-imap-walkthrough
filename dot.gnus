@@ -15,17 +15,26 @@
 
 (add-hook 'message-setup-hook
           (lambda ()
-            "From-address keyed off msmtp config if gnus-newsgroup-name in effect."
-            (let* ((group (when (buffer-live-p (get-buffer gnus-group-buffer))
-                            (with-current-buffer gnus-group-buffer (gnus-group-group-name))))
-                   (method (gnus-find-method-for-group group))
-                   (apropos-from (when (eq 'nnimap (nth 0 method))
-                                   (my-msmtp-get (nth 1 method) "from"))))
-              ;; drv's comment in gnus-setup-message why prevailing
-              ;; gnus-newsgroup-name cannot be used
-              (unless (zerop (length apropos-from))
-                (save-excursion
-                  (message-replace-header "From" apropos-from))))))
+            "Figure out who to send as.
+
+\"drv\" remarks in `gnus-setup-message' why prevailing `gnus-newsgroup-name' cannot be used.
+Regardless, we use it if it's available, and resort to *Group* buffer as a backup.
+"
+            (require 'subr-x)
+            ;; in a hack, `gnus-group-mail' sets `gnus-newsgroup-name' to empty string
+            (if-let ((group (cond ((not (zerop (length gnus-newsgroup-name)))
+                                   gnus-newsgroup-name)
+                                  ((buffer-live-p (get-buffer gnus-group-buffer))
+                                   (with-current-buffer gnus-group-buffer
+                                     (gnus-group-group-name))))))
+                (let* ((method (gnus-find-method-for-group group))
+                       (apropos-from (when (eq 'nnimap (nth 0 method))
+                                       (my-msmtp-get (nth 1 method) "from"))))
+                  (if (zerop (length apropos-from))
+                      (error "No \"from\" entry for %s" method)
+                    (save-excursion
+                      (message-replace-header "From" apropos-from))))
+              (error "No current gnus-newsgroup-name"))))
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
