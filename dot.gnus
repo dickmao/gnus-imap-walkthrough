@@ -30,11 +30,9 @@ Regardless, we use it if it's available, and resort to *Group* buffer as a backu
                 (let* ((method (gnus-find-method-for-group group))
                        (apropos-from (when (eq 'nnimap (nth 0 method))
                                        (my-msmtp-get (nth 1 method) "from"))))
-                  (if (zerop (length apropos-from))
-                      (error "No \"from\" entry for %s" method)
+                  (unless (zerop (length apropos-from))
                     (save-excursion
-                      (message-replace-header "From" apropos-from))))
-              (error "No current gnus-newsgroup-name"))))
+                      (message-replace-header "From" apropos-from)))))))
 
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
