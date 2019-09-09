@@ -22,7 +22,8 @@ From *Summary* or *Article* (replies), original article buffer should have what 
 From *Group*, `gnus-group-mail' sets `gnus-newsgroup-name' to empty string, and we'll need
 to cross reference whatever group is under the cursor against dot.msmtprc."
             (require 'subr-x) ;; if-let
-            (if-let ((to (and (get-buffer gnus-original-article-buffer)
+            (if-let ((to (and (not (message-news-p))
+                              (get-buffer gnus-original-article-buffer)
                               (with-current-buffer gnus-original-article-buffer
                                 (or (nnmail-fetch-field "delivered-to")
                                     (if-let ((field (nnmail-fetch-field "x-apparently-to")))
