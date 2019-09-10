@@ -20,6 +20,7 @@ cp ${REPO}/${GMAIL_USER}.gpg ~/Maildir/
 verify-circleci-gpg ${GMAIL_USER}
 
 # The Dovecot mail server sits between Gnus and ~/Maildir.
+sudo DEBIAN_FRONTEND=noninteractive apt update -yq
 sudo DEBIAN_FRONTEND=noninteractive apt-get install dovecot-common dovecot-imapd --quiet --no-force-yes
 envsubst < ${REPO}/dot.authinfo >> ~/.authinfo
 chmod 600 ~/.authinfo
