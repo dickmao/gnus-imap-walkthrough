@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/gh/dickmao/gnus-imap-walkthrough/tree/master.svg?style=svg)](https://circleci.com/gh/dickmao/gnus-imap-walkthrough/tree/master)
 
+.. image:: screenshot.png
+
 # See Your Gmail in a Docker Container
 Begin by turning on "Less secure app access" from Gmail's settings.
 
