@@ -62,7 +62,6 @@ while [ $inprog -lt 8 ] && ! grep -sq Pulled ~/Maildir/${GMAIL_USER}/Inbox/.mbsy
     let inprog=inprog+1
     if systemctl --user -l status mbsync | grep -sqi "web login required"; then
       echo Google locked something down at end of 2019
-      expr="t"
       break
     fi
     sleep 3
