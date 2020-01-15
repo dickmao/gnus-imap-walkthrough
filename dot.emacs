@@ -11,7 +11,7 @@
   (setq my-secondary-select-methods
         `(,(append '(nnimap "${GMAIL_USER}") server-vars)
           ;; other Gnus message sources, e.g.,
-          ;; (nntp "news.gmane.org")
+          ;; (nntp "news.gmane.io")
           ;; (nnreddit "")
           ;; ,(append '(nnimap "${HOTMAIL_USER}") server-vars)
           ;; ,(append '(nnimap "${YAHOO_USER}") server-vars)
