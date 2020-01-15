@@ -56,7 +56,7 @@ envsubst < ${REPO}/dot.gnus >> ~/.gnus
 
 # Check that our initial run of mbsync finished.  Not applicable generally.
 expr="(let ((gnus-tmp-active (gnus-active \"nnimap+${GMAIL_USER}:INBOX\"))) (cl-assert (not (zerop (1+ (- (cdr gnus-tmp-active) (car gnus-tmp-active)))))))"
-if mbsync -Va | grep -sqi "web login required" ; then
+if mbsync -Va 2>&1 | grep -sqi "web login required" ; then
   echo Google locked something down towards end of 2019
   expr="t"
 else
