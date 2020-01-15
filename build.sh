@@ -47,14 +47,6 @@ systemctl --user daemon-reload
 systemctl --user enable --now mbsync.timer
 [ `systemctl --user is-enabled mbsync.timer` == "enabled" ]
 
-# Check that our initial run of mbsync finished.  Not applicable generally.
-inprog=0
-while [ $inprog -lt 10 ] && ! grep -sq Pulled ~/Maildir/${GMAIL_USER}/Inbox/.mbsyncstate ; do
-    echo "Waiting for mbsync..."
-    let inprog=inprog+1
-    sleep 3
-done
-
 # Msmtp provides the backend to send outgoing mail.
 envsubst < ${REPO}/dot.msmtprc > ~/.msmtprc
 
@@ -62,5 +54,19 @@ envsubst < ${REPO}/dot.msmtprc > ~/.msmtprc
 envsubst < ${REPO}/dot.emacs >> ~/.emacs
 envsubst < ${REPO}/dot.gnus >> ~/.gnus
 
+# Check that our initial run of mbsync finished.  Not applicable generally.
+expr="(let ((gnus-tmp-active (gnus-active \"nnimap+${GMAIL_USER}:INBOX\"))) (cl-assert (not (zerop (1+ (- (cdr gnus-tmp-active) (car gnus-tmp-active)))))))"
+if mbsync -Va | grep -sqi "web login required" ; then
+  echo Google locked something down towards end of 2019
+  expr="t"
+else
+  inprog=0
+  while [ $inprog -lt 10 ] && ! grep -sq Pulled ~/Maildir/${GMAIL_USER}/Inbox/.mbsyncstate ; do
+      echo "Waiting for mbsync..."
+      let inprog=inprog+1
+      sleep 3
+  done
+fi
+
 # Test that we see messages in our inbox.  Not applicable generally.
-emacs -Q --batch -l ~/.emacs -f gnus --eval "(let ((gnus-tmp-active (gnus-active \"nnimap+${GMAIL_USER}:INBOX\"))) (cl-assert (not (zerop (1+ (- (cdr gnus-tmp-active) (car gnus-tmp-active)))))))"
+emacs -Q --batch -l ~/.emacs -f gnus --eval "$expr"
