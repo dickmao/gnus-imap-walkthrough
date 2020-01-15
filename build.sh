@@ -56,17 +56,13 @@ envsubst < ${REPO}/dot.gnus >> ~/.gnus
 
 # Check that our initial run of mbsync finished.  Not applicable generally.
 expr="(let ((gnus-tmp-active (gnus-active \"nnimap+${GMAIL_USER}:INBOX\"))) (cl-assert (not (zerop (1+ (- (cdr gnus-tmp-active) (car gnus-tmp-active)))))))"
-if mbsync -Va 2>&1 | grep -sqi "web login required" ; then
-  echo Google locked something down towards end of 2019
-  expr="t"
-else
-  inprog=0
-  while [ $inprog -lt 10 ] && ! grep -sq Pulled ~/Maildir/${GMAIL_USER}/Inbox/.mbsyncstate ; do
-      echo "Waiting for mbsync..."
-      let inprog=inprog+1
-      sleep 3
-  done
-fi
+inprog=0
+while [ $inprog -lt 5 ] && ! grep -sq Pulled ~/Maildir/${GMAIL_USER}/Inbox/.mbsyncstate ; do
+    echo "Waiting for mbsync..."
+    let inprog=inprog+1
+    sleep 3
+done
+journalctl -u mbsync
 
 # Test that we see messages in our inbox.  Not applicable generally.
 emacs -Q --batch -l ~/.emacs -f gnus --eval "$expr"
