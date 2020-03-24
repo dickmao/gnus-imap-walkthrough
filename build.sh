@@ -60,7 +60,7 @@ inprog=0
 while [ $inprog -lt 8 ] && ! grep -sq Pulled ~/Maildir/${GMAIL_USER}/Inbox/.mbsyncstate ; do
     echo "Waiting for mbsync..."
     let inprog=inprog+1
-    if systemctl --user -l status mbsync | grep -sqi "web login required"; then
+    if systemctl --user -l --no-pager status mbsync | grep -sqi "web login required"; then
       echo Google locked something down at end of 2019
       expr="t"
       break
