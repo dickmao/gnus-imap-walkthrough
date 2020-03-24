@@ -43,6 +43,6 @@ RUN set -xe \
   && cp /tmp/.emacs $HOME \
   && cp /tmp/.gnus $HOME \
   && gpg --allow-secret-key-import --import /tmp/.secret \
-  && mbsync -qq -a \
+  && ${CI_SKIP_MBSYNC} \
   && printf -- "2,7,12,17,22,27,32,37,42,47,52,57 * * * * /usr/bin/mbsync -qq -a\n" | crontab -
 CMD [ "sh", "-c", "sudo /usr/sbin/cron ; sudo /etc/init.d/dovecot start ; emacs -f gnus" ]

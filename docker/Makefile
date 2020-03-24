@@ -1,6 +1,11 @@
 SHELL := /bin/bash
 REPO := $(shell git rev-parse --show-toplevel)
 GMAIL_USER := $(shell cat gmail-user 2>/dev/null)
+ifeq ($(CI),true)
+CI_SKIP_MBSYNC := true
+else
+CI_SKIP_MBSYNC := "mbsync -qq -a"
+endif
 DOVECOT_PASSWORD := weak_password
 
 .PHONY: all
@@ -53,4 +58,4 @@ dot.gnus: gmail-password.gpg $(REPO)/$@
 	GMAIL_USER=$(GMAIL_USER) GMAIL_USER2=gmail.user2 HOTMAIL_USER=hotmail.user YAHOO_USER=yahoo.user envsubst < $(REPO)/$@ > $@
 
 Dockerfile: Dockerfile.in dot.authinfo dot.mbsyncrc dot.msmtprc dot.emacs dot.gnus
-	GMAIL_USER=$(GMAIL_USER) envsubst '$${GMAIL_USER}'< $@.in > $@
+	GMAIL_USER=$(GMAIL_USER) CI_SKIP_MBSYNC=$(CI_SKIP_MBSYNC) envsubst '$${GMAIL_USER} $${CI_SKIP_MBSYNC}' < $@.in > $@
