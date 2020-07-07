@@ -6,3 +6,6 @@ run:
 
 test:
 	$(MAKE) -C docker $@
+
+clean:
+	$(MAKE) -C docker $@
