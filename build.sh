@@ -2,7 +2,7 @@
 
 REPO=$(git rev-parse --show-toplevel)
 export GMAIL_USER=nnreddit.user
-export GMAIL_USER2=gmail.user2
+export GMAIL_USER2=general.labor.631
 export HOTMAIL_USER=hotmail.user
 export YAHOO_USER=yahoo.user
 export DOVECOT_PASSWORD=weak_password
