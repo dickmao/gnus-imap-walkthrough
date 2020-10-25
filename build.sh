@@ -37,7 +37,6 @@ sudo /etc/init.d/dovecot start
 
 # Have mbsync fetch from your cloud-based email service every five minutes via
 # `systemctl --user`.
-sudo add-apt-repository --yes ppa:slgeorge/ppa
 sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install isync --quiet --no-force-yes
 envsubst < ${REPO}/dot.mbsyncrc > ~/.mbsyncrc
