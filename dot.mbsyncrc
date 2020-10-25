@@ -38,30 +38,30 @@ MaxSize 100k
 MaxMessages 1000
 
 #######################################
-# IMAPAccount ${GMAIL_USER2}
-# Host imap.gmail.com
-# User ${GMAIL_USER2}@gmail.com
-# PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${GMAIL_USER2}.gpg"
-# AuthMechs LOGIN
-# SSLType IMAPS
-# CertificateFile /etc/ssl/certs/ca-certificates.crt
+IMAPAccount Gmail2
+Host imap.gmail.com
+User ${GMAIL_USER2}@gmail.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${GMAIL_USER2}.gpg"
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-# IMAPStore ${GMAIL_USER2}-remote
-# Account ${GMAIL_USER2}
+IMAPStore ${GMAIL_USER2}-remote
+Account ${GMAIL_USER2}
 
-# MaildirStore ${GMAIL_USER2}-local
-# Subfolders Verbatim
-# Path ~/Maildir/${GMAIL_USER2}/
-# Inbox ~/Maildir/${GMAIL_USER2}/Inbox
+MaildirStore ${GMAIL_USER2}-local
+Subfolders Verbatim
+Path ~/Maildir/${GMAIL_USER2}/
+Inbox ~/Maildir/${GMAIL_USER2}/Inbox
 
-# Channel ${GMAIL_USER2}
-# Master :${GMAIL_USER2}-remote:
-# Slave :${GMAIL_USER2}-local:
-# Patterns * !Inbox !emacs-devel ![Gmail]* "[Gmail]/Sent Mail"
-# Create Slave
-# Sync All
-# Expunge Both
-# SyncState *
+Channel ${GMAIL_USER2}
+Master :${GMAIL_USER2}-remote:
+Slave :${GMAIL_USER2}-local:
+Patterns * !Inbox !emacs-devel ![Gmail]* "[Gmail]/Sent Mail"
+Create Slave
+Sync All
+Expunge Both
+SyncState *
 
 #######################################
 # IMAPAccount ${HOTMAIL_USER}

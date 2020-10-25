@@ -10,6 +10,7 @@
                       (nnimap-split-fancy ,nnimap-split-fancy))))
   (setq my-secondary-select-methods
         `(,(append '(nnimap "${GMAIL_USER}") server-vars)
+        `(,(append '(nnimap "${GMAIL_USER2}") server-vars)
           ;; other Gnus message sources, e.g.,
           ;; (nntp "news.gmane.io")
           ;; (nnreddit "")

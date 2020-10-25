@@ -10,4 +10,12 @@ user ${GMAIL_USER}@gmail.com
 from ${GMAIL_USER}@gmail.com
 passwordeval gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${GMAIL_USER}.gpg
 
+account ${GMAIL_USER2}
+host smtp.gmail.com
+tls_certcheck off
+auth on
+user ${GMAIL_USER2}@gmail.com
+from ${GMAIL_USER2}@gmail.com
+passwordeval gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${GMAIL_USER2}.gpg
+
 account default : ${GMAIL_USER}

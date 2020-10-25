@@ -1,1 +1,2 @@
 machine ${GMAIL_USER} login ${GMAIL_USER} password ${DOVECOT_PASSWORD}
+machine ${GMAIL_USER2} login ${GMAIL_USER2} password ${DOVECOT_PASSWORD}
