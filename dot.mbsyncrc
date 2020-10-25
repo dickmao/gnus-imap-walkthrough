@@ -38,7 +38,7 @@ MaxSize 100k
 MaxMessages 1000
 
 #######################################
-# IMAPAccount Gmail2
+# IMAPAccount ${GMAIL_USER2}
 # Host imap.gmail.com
 # User ${GMAIL_USER2}@gmail.com
 # PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${GMAIL_USER2}.gpg"
@@ -64,7 +64,7 @@ MaxMessages 1000
 # SyncState *
 
 #######################################
-# IMAPAccount Hotmail
+# IMAPAccount ${HOTMAIL_USER}
 # Host imap-mail.outlook.com
 # User ${HOTMAIL_USER}@gmail.com
 # PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${HOTMAIL_USER}.gpg"
@@ -90,7 +90,7 @@ MaxMessages 1000
 # SyncState *
 
 #######################################
-# IMAPAccount Yahoo
+# IMAPAccount ${YAHOO_USER}
 # Host imap.mail.yahoo.com
 # User ${YAHOO_USER}@gmail.com
 # PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Maildir/${YAHOO_USER}.gpg"
