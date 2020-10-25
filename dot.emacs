@@ -1,3 +1,4 @@
+;;; gnus-imap-walkthrough dot.emacs
 ;;; Anything coming/going to the `emacs-devel` mailing list is filed
 ;;; locally to folder of same name.
 (let* ((nnimap-split-fancy '(| (any "emacs-devel" "emacs-devel")
@@ -10,7 +11,7 @@
                       (nnimap-split-fancy ,nnimap-split-fancy))))
   (setq my-secondary-select-methods
         `(,(append '(nnimap "${GMAIL_USER}") server-vars)
-        `(,(append '(nnimap "${GMAIL_USER2}") server-vars)
+          ,(append '(nnimap "${GMAIL_USER2}") server-vars)
           ;; other Gnus message sources, e.g.,
           ;; (nntp "news.gmane.io")
           ;; (nnreddit "")

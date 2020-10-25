@@ -1,6 +1,8 @@
 #!/bin/bash -euxE
 
 REPO=$(git rev-parse --show-toplevel)
+source ${REPO}/circleci-funcs.sh
+
 export GMAIL_USER=nnreddit.user
 export GMAIL_USER2=general.labor.631
 export HOTMAIL_USER=hotmail.user
@@ -10,14 +12,19 @@ export DOVECOT_UID=$(id -u $USER)
 export DOVECOT_GID=$(id -g $USER)
 export DOVECOT_HOME=${HOME}
 
-source ${REPO}/build-utils.sh
+# Squirrel auth info in ~/Maildir
+if circleci-gate ; then
+    mkdir -p ~/Maildir/${GMAIL_USER}
+    cp ${REPO}/${GMAIL_USER}.gpg ~/Maildir/${GMAIL_USER}.gpg
+else
+    for user in ${GMAIL_USER} ${GMAIL_USER2}; do
+        mkdir -p ~/Maildir/${user}
+        read -ep "Password for ${user}: "
+        echo $REPLY | gpg -ae --default-recipient-self -o ~/Maildir/${user}.gpg
+    done
+fi
 
-# Bootstrap ~/Maildir
-mkdir -p ~/Maildir/${GMAIL_USER}
-cp ${REPO}/${GMAIL_USER}.gpg ~/Maildir/
-
-# verify-circleci-gpg ONLY applies to the CircleCI environment (generally not applicable!).
-verify-circleci-gpg ${GMAIL_USER}
+circleci-verify-gpg ${GMAIL_USER}
 
 # The Dovecot mail server sits between Gnus and ~/Maildir.
 sudo DEBIAN_FRONTEND=noninteractive apt update -yq
@@ -50,22 +57,12 @@ systemctl --user enable --now mbsync.timer
 envsubst < ${REPO}/dot.msmtprc > ~/.msmtprc
 
 # Basic .emacs and .gnus configuration
-envsubst < ${REPO}/dot.emacs >> ~/.emacs
-envsubst < ${REPO}/dot.gnus >> ~/.gnus
+if ! grep -q "gnus-imap-walkthrough dot.emacs" ~/.emacs ; then
+    envsubst < ${REPO}/dot.emacs >> ~/.emacs
+fi
+if ! grep -q "gnus-imap-walkthrough dot.gnus" ~/.gnus ; then
+    envsubst < ${REPO}/dot.gnus >> ~/.gnus
+fi
 
-# Check that our initial run of mbsync finished.  Not applicable generally.
-expr="(let ((gnus-tmp-active (gnus-active \"nnimap+${GMAIL_USER}:INBOX\"))) (cl-assert (not (zerop (1+ (- (cdr gnus-tmp-active) (car gnus-tmp-active)))))))"
-inprog=0
-while [ $inprog -lt 8 ] && ! grep -sq Pulled ~/Maildir/${GMAIL_USER}/Inbox/.mbsyncstate ; do
-    echo "Waiting for mbsync..."
-    let inprog=inprog+1
-    if systemctl --user -l --no-pager status mbsync | grep -sqi "web login required"; then
-      echo Google locked something down at end of 2019
-      expr="t"
-      break
-    fi
-    sleep 3
-done
-
-# Test that we see messages in our inbox.  Not applicable generally.
-emacs -Q --batch -l ~/.emacs -f gnus --eval "$expr"
+circleci-goose-mbsync
+circleci-test-gnus

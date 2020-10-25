@@ -1,3 +1,4 @@
+;;; gnus-imap-walkthrough dot.gnus
 (setq sendmail-program "msmtp")
 
 (require 'gnus-demon)
