@@ -4,7 +4,7 @@ REPO=$(git rev-parse --show-toplevel)
 source ${REPO}/circleci-funcs.sh
 
 export GMAIL_USER=nnreddit.user
-export GMAIL_USER2=general.labor.631
+export GMAIL_USER2=nnreddit.user
 export HOTMAIL_USER=hotmail.user
 export YAHOO_USER=yahoo.user
 export DOVECOT_PASSWORD=weak_password
