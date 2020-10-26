@@ -1,6 +1,6 @@
 #!/bin/bash -euxE
 
-REPO=$(dirname $0)
+REPO=$(git rev-parse --show-toplevel)
 export GMAIL_USER=nnreddit.user
 export GMAIL_USER2=gmail.user2
 export HOTMAIL_USER=hotmail.user
