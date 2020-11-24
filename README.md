@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/dickmao/gnus-imap-walkthrough/tree/master.svg?style=svg)](https://circleci.com/gh/dickmao/gnus-imap-walkthrough/tree/master)
 
-<a href="https://youtu.be/T43H5sQvi18"><img src=thumbnail.png width="350" height="197" alt="Replacing Thunderbird With Gnus"/></a>
+<a href="https://youtu.be/DMpZtC98F_M"><img src=thumbnail.png width="350" height="197" alt="Replacing Thunderbird With Gnus"/></a>
 
 # See Your Gmail in a Docker Container
 Begin by turning on "Less secure app access" from Gmail's settings.
