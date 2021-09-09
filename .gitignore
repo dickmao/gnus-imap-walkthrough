@@ -15,4 +15,4 @@ docker/dovecot.users
 docker/*.gpg
 docker/Dockerfile
 docker/dot.*
-docker/gmail-user
+docker/gmail-user*
