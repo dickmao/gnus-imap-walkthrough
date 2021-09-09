@@ -1,7 +1,7 @@
 all:
 	$(MAKE) -C docker $@
 
-run:
+run: clean
 	$(MAKE) -C docker $@
 
 test:
