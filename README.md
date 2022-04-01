@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/dickmao/gnus-imap-walkthrough/tree/master.svg?style=svg)](https://circleci.com/gh/dickmao/gnus-imap-walkthrough/tree/master)
+[![CircleCI](https://circleci.com/gh/dickmao/gnus-imap-walkthrough/tree/master.svg?style=svg)](https://circleci.com/gh/dickmao/gnus-imap-walkthrough/tree/dev)
 
 <a href="https://youtu.be/DMpZtC98F_M"><img src=thumbnail.png width="350" height="197" alt="Replacing Thunderbird With Gnus"/></a>
 

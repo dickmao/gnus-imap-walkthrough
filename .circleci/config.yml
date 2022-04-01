@@ -1,4 +1,5 @@
 version: 2.1
+
 jobs:
   build:
     machine:
@@ -9,3 +10,13 @@ jobs:
           command: |
             bash -euxE build.sh
             make test
+
+workflows:
+  version: 2
+  push:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
