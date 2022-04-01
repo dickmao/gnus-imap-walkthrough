@@ -13,7 +13,7 @@ function circleci-test-gnus {
 
 function circleci-goose-mbsync {
     circleci-gate || return 0
-    expr="(let ((gnus-tmp-active (gnus-active \"nnimap+${GMAIL_USER}:INBOX\"))) (princ (buffer-string) (function external-debugging-output)) (cl-assert (not (zerop (1+ (- (cdr gnus-tmp-active) (car gnus-tmp-active)))))))"
+    expr="(princ (buffer-string) (function external-debugging-output))"
     inprog=0
     while [ $inprog -lt 8 ] && ! grep -sq Pulled ~/Maildir/${GMAIL_USER}/Inbox/.mbsyncstate ; do
         echo "Waiting for mbsync..."

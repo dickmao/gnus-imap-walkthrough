@@ -46,10 +46,14 @@ sudo /etc/init.d/dovecot start
 # `systemctl --user`.
 sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install isync --quiet --no-force-yes
+sudo loginctl enable-linger $(id -u)
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 envsubst < ${REPO}/dot.mbsyncrc > ~/.mbsyncrc
 mkdir -p ~/.config/systemd/user
 cp ${REPO}/mbsync.service ${REPO}/mbsync.timer ~/.config/systemd/user/
-systemctl --user daemon-reload
+
+systemctl --user daemon-reload || (sleep 3 && systemctl --user daemon-reload)
 systemctl --user enable --now mbsync.timer
 [ `systemctl --user is-enabled mbsync.timer` == "enabled" ]
 
