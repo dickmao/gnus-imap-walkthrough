@@ -1,9 +1,7 @@
 version: 2.1
+
 jobs:
   build:
-    branches:
-      ignore:
-        - master
     machine:
       image: ubuntu-2004:202201-02
     steps:
@@ -12,3 +10,13 @@ jobs:
           command: |
             bash -euxE build.sh
             make test
+
+workflows:
+  version: 2
+  push:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
