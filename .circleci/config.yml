@@ -2,6 +2,9 @@ version: 2.1
 
 jobs:
   build:
+    branches:
+      ignore:
+        - master
     machine:
       image: ubuntu-2004:202201-02
     steps:
