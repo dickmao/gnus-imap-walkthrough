@@ -2,13 +2,9 @@
 
 <a href="https://youtu.be/DMpZtC98F_M"><img src=thumbnail.png width="350" height="197" alt="Replacing Thunderbird With Gnus"/></a>
 
-# See Your Gmail in a Docker Container
-Begin by turning on "Less secure app access" from Gmail's settings.
-
-Clone this repo, and `make run`.  To avoid a potential "mail-strom", the container configuration limits the initial download to 1000 messages and filters out attachments exceeding 100kB.
-
-# Now Do It Without Docker
-Make a quick study of [build.sh](https://github.com/dickmao/gnus-imap-walkthrough/blob/master/build.sh).  The prescribed setup is neither secure (!) nor feature complete, but should serve as a solid baseline.  I can offer some guarantees against bitrot as I periodically [run the build](https://circleci.com/gh/dickmao/gnus-imap-walkthrough) on a CircleCI Ubuntu image.
+# Less Secure Apps is no longer an option
+Generate a so-called "App Password" under Google's 2FA edicts.
+Enter this password instead of your email password when `build.sh` prompts.
 
 # Gnus, a Tough Sell
 > Its [sic] 2019, the only thing you should be using is notmuch.
